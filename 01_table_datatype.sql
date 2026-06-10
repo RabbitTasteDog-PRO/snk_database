@@ -1,15 +1,8 @@
-# Database 기록
+-- ===================================
+-- DATA TYPE
+-- ===================================
+/*
 
-homebrew sql8.0제거  
-도커로 컨테이너 추가해서 프로젝트 진행
-
----
-
-# property
-- 프로퍼티 안에 "+"는 id 같은 개념
----
-
-# DATA TYPE
 
 ## 숫자형 (정수/실수)
 
@@ -34,6 +27,8 @@ homebrew sql8.0제거
 | `TEXT`         | 긴 텍스트 (최대 65,535자)         | 긴 설명글          |
 | `ENUM`         | 지정된 값 중 하나만 저장 가능     | `'male'`, `'female'` |
 
+# char 예시 : 주민번호, 전화번호
+
 ---
 
 ## 날짜/시간형
@@ -47,3 +42,46 @@ homebrew sql8.0제거
 | `YEAR`       | 연도 (4자리)                   | `'2025'`                |
 
 */
+
+select now();
+select current_date, current_time;
+select current_timestamp;
+
+-- === TABLE ===
+/*
+- 테이블(값)을 보관하느 주체
+- row(행)과 column(열)로 이루어져 있다
+- database(schema) 하위에만 존재 한다
+*/
+
+select t.* from tbl_category t;
+select t.* from tbl_menu t;
+select t.* from tbl_order t;
+select t.* from tbl_order_menu t;
+select t.* from tbl_payment t;
+select t.* from tbl_payment_order t;
+
+
+# 테이블 구조 조회 (컬럼명, 자료형, 제약조건, 추가설명 )
+desc tbl_menu;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

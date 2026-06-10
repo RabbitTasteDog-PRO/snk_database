@@ -55,4 +55,4 @@ SELECT DATABASE();
 USE menudb;
 SHOW TABLES;
 
-SELECT * FROM menudb.tbl_category;
+SELECT t.* FROM menudb.tbl_order t;
