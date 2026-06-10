@@ -5,4 +5,5 @@ homebrew sql8.0제거
 
 ---
 
-
+# property
+- 프로퍼티 안에 "+"는 id 같은 개념
