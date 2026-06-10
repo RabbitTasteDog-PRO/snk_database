@@ -92,8 +92,45 @@ from tbl_menu as menu;
 select m.category_code from tbl_menu as m;
 select distinct m.category_code from tbl_menu as m;
 
+# ===========================================================================
+# order by 절
+# - 조회 결과(resultSet)의 정렬 순서를 지정하는 구분
+# - 특정컬럼을 기준으로 DESC, ASC
+# - 기준으로 삼은 컬럼이 여러개 존재하면 그룹화된 정렬이 수행됨
+# ===========================================================================
+select m.menu_name, m.menu_price
+from tbl_menu as m
+order by m.menu_price ASC ;
 
+select m.menu_name, m.menu_price
+from tbl_menu as m
+order by m.menu_price desc ;
 
+# 문자열 or 날짜도 정렬 가능
+select m.menu_name
+from tbl_menu as m
+order by m.menu_name asc ;
+
+# select 절에 작성되지 않은 컬럼도 정렬 가능
+# 한번 실행되었다면 캐싱되었던 테이블을 참조하기 때문에 가능
+select m.menu_name
+from tbl_menu as m
+order by m.menu_price asc ;
+
+# - 기준으로 삼은 컬럼이 여러개 존재하면 그룹화된 정렬이 수행됨
+# 메뉴 테이블에서
+# 메뉴명, 카테고리코드, 가격을 조회
+# 단, 카테고리 코드 오름차순, 가격 내림차순으로 조회
+
+select m.menu_name, m.category_code, m.menu_price
+from tbl_menu as m;
+
+# 1) 카테고리 코드로 오름차순 정렬을 먼저 수행
+# 2) 같은 카테고리 코드를 지닌 행들끼리 붙어있게됨
+# 3) 같은 카테고리 코드를 지닌 행 내에서 가격 내림차순 정렬 수행
+select m.menu_name, m.category_code, m.menu_price
+from tbl_menu as m
+order by m.category_code asc, m.menu_price desc ;
 
 
 
