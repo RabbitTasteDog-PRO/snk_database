@@ -2,12 +2,22 @@
 create user skn_ai@'%' identified by '1234';
 
 # 데이터베이스
-create database menudb;
+# MySQL에서는 database와 schema로 같은 의미로 사용
+# - database(창고)
+# - schema(창고 설계도, 명세서)
+# database(데이터 창고)
+create database menudb; # 데티어베이스 생성
+create schema employeedb; # 스키마 생성
 
+# 권한부여
 grant all privileges on menudb.* to skn_ai@'%';
+grant all privileges on employeedb.* to skn_ai@'%';
 
-show
-databases;
+# skn_ai 계정에 부여된 권한 테이블 확인
+show grants for skn_ai@'%';
+
+
+show databases;
 
 select user(), current_user();
 
@@ -36,3 +46,13 @@ docker run --name mysql8 \
   -p 3306:3306 \
   -d mysql:8.0
 */
+
+# select * from menudb;
+SELECT * FROM tbl_category;
+
+SELECT DATABASE();
+
+USE menudb;
+SHOW TABLES;
+
+SELECT * FROM menudb.tbl_category;
