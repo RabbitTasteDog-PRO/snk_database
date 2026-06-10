@@ -243,7 +243,13 @@ select * from tbl_menu limit 0,5;
 select * from tbl_menu limit 5,10;
 select * from tbl_menu limit 20,3;
 
-
+# 페이징 처리 시 limit를 사용
+# 메뉴 테이블을 이용해서 메뉴판을 만든다고 하였을 때
+# 한 페이지당 메뉴 4개씩
+# 순서는 메뉴코드 역순
+select m.* from tbl_menu as m
+order by menu_code desc
+limit 0, 4;
 
 
 
