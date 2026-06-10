@@ -168,9 +168,38 @@ select  m.menu_code, m.menu_name, m.menu_price  from tbl_menu as m
 where m.menu_price >= 13000
 order by m.menu_price desc ;
 
+# 메뉴테이블에서 카테고리 번호 == 10
+# 카테고리 코드, 메뉴명, 가격
+# 메뉴명 asc
+select  m.category_code, m.menu_name, m.menu_price  from tbl_menu as m
+where m.category_code = 10
+order by m.menu_name asc;
 
+# 메뉴테이블에서 가격이 10,000원 이상, 20,000원 이하인
+# 메뉴의 메뉴명, 가격, 카테고리 코드를
+# 가격 내림 차순으로 조회
+select m.category_code, m.menu_name, m.menu_price
+from tbl_menu as m
+where m.menu_price between 10000 and 20000
+# where m.menu_price >= 10000 and m.menu_price <= 20000
+order by m.menu_name desc;
 
+#반대
+# 10,000원 미만 20,000원 초과
+select m.category_code, m.menu_name, m.menu_price
+from tbl_menu as m
+where m.menu_price not between 10000 and 20000
+# where m.menu_price < 10000 or m.menu_price > 20000
+order by m.menu_name desc;
 
+#메뉴 테이블에서 카테고리코드가 4,6,7인 메뉴의
+#메뉴명, 카테고리 코드
+select m.category_code, m.menu_name
+from tbl_menu as m
+# where m.category_code =4 or m.category_code =6 or m.category_code =7
+where m.category_code in (4,6,7)
+# where m.category_code not in (4,6,7)
+order by m.category_code asc;
 
 
 
