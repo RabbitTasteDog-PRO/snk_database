@@ -201,13 +201,30 @@ where m.category_code in (4,6,7)
 # where m.category_code not in (4,6,7)
 order by m.category_code asc;
 
+#like
+# 문자열 패턴 검사 연산자
+# 패턴을 나타내는 기호(와일드카드)로 %,_ 나타낸다
+# '%': 포함, 0개 이상
+# '_': 문자의 length, '_'개당 1개
 
+select m.menu_name from tbl_menu as m
+where
+# '아'
+#     m.menu_name like '아%'
+# '밥'으로 끝냄
+#     m.menu_name like '%밥'
+# '마늘' 포함
+#     m.menu_name like '%마늘%'
+# '쥬스'로 끝남
+#     m.menu_name like '%쥬스'
+# 메뉴명이 5글자인 메뉴조회
+    menu_name like '______'
+order by m.menu_name asc;
 
-
-
-
-
-
+# null 체크
+select c.* from tbl_category as c
+# where c.ref_category_code is null;
+where c.ref_category_code is not null;
 
 
 
