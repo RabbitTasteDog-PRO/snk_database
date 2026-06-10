@@ -222,9 +222,29 @@ where
 order by m.menu_name asc;
 
 # null 체크
-select c.* from tbl_category as c
-# where c.ref_category_code is null;
-where c.ref_category_code is not null;
+select distinct c.* from tbl_category as c
+where
+    # ref_category_code 컬럼 안에 null이란 갓이 있으면 true
+#     c.ref_category_code = null
+    # -> null은 값(data)이 아님
+    # 컬럼이 비었음을 나타내는 기호
+
+    # ref_category_code 컬럼 값이 비어있으면 True
+    c.ref_category_code is null;
+#     c.ref_category_code is not null;
+
+# limit
+# - 조회 결과(ResultSet)에서 지정된 크기만큼의 행만 조회
+select * from tbl_menu;
+# limit n : 0번 인덱스(1행) 부터 n행 만큼 조회
+select * from tbl_menu limit 5;
+# limit start(offset), n : start(offset)행 만큼 인덱스 부터 n행 만큼 조회
+select * from tbl_menu limit 0,5;
+select * from tbl_menu limit 5,10;
+select * from tbl_menu limit 20,3;
+
+
+
 
 
 
