@@ -119,10 +119,50 @@ where m.category_code in (4, 10)
 group by c.category_name
 ;
 
+#==========================================================================================================
+# having 절
+# - group by를 통해 만들어진 그룹에 대한 조건을 작성하는 구문
+# - having 절 작성 시 항상 그룹함수가 포함된다
 
+# 메뉴 테이블에서
+# 카테고리 별 메뉴 개수가 2개 이상인 카테고리의
+# 카테고리 번호, 개수 출력
+select m.category_code, count(*)
+from tbl_menu m
+group by m.category_code
+having count(*) >= 2
+;
+# 카테고리 테이블에서
+# 부모 카테고리(ref-category_code)별로 개수 3개 이상인
+# 부모 카테고리 번호, 개수 조회
+# 부모 카테고리 오름 차순으로 조회
+select ref_category_code, count(*)
+from tbl_category
+group by ref_category_code
+having count(*) >= 3
+order by ref_category_code asc
+;
 
+# 위 쿼리 결과에서 null 제거
+select ref_category_code, count(*)
+from tbl_category
+where ref_category_code is not null
+group by ref_category_code
+having count(*) >= 3
+# having에서 하는 것보단 먼저 필터링해서 검색 결과를 추출하는게 좀더 효율적이다
+# having count(*) >= 3 and ref_category_code is not null
+order by ref_category_code asc
+;
 
-
+# 위 코드에서 limit 추가
+select ref_category_code, count(*)
+from tbl_category
+where ref_category_code is not null
+group by ref_category_code
+having count(*) >= 3
+order by count(*) asc
+limit 1
+;
 
 
 
