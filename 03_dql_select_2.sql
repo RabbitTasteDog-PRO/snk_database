@@ -161,3 +161,20 @@ select * from tbl_order_menu
 select * from tbl_menu
 ;
 
+# multiple join : menudb
+select *
+from tbl_order as o
+join tbl_order_menu as om
+on o.order_code = om.order_code # o + om합쳐진 관계생성
+right join tbl_menu as m
+    on m.menu_code = om.menu_code
+;
+
+
+# multiple join : emploeedb
+select * from EMPLOYEE as e
+join DEPARTMENT as d
+    on e.DEPT_CODE = d.DEPT_ID
+join LOCATION l
+on d.LOCATION_ID = l.LOCAL_CODE
+;
