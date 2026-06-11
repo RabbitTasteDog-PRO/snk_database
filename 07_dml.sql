@@ -25,3 +25,96 @@
 # - pk, unique컬럼에는 중복값이 들어갈 수 없다.
 # - fk컬럼 참조하는 컬럼 이외의 값을 들어갈 수 없다.
 # - check컬럼 제시된 도메인외의 값을 들어갈 수 없다.
+
+# 문법 1
+# insert into tbl_menu values (null, '바나나 해장국', 9500, 4, 'Y');
+DELETE
+FROM tbl_menu
+WHERE menu_code = 24;
+commit;
+select *
+from tbl_category;
+
+
+# desc 테이블 정보 조회
+desc tbl_menu;
+# -> 모든 컬럼에 null 삽입 불가
+
+# 문법 2
+# 작성한 컬럼 값 제공
+# insert into tbl_menu(menu_price, orderable_status, menu_name, category_code)
+# values (6500,'Y','카카오 죽', 6);
+
+# 대량 추가
+# insert into
+#     tbl_menu
+# values
+#     (null, '참치맛 아이스크림', 1700, 12, 'Y'),
+#     (null, '멸치맛 아이스크림', 1700, 12, 'Y'),
+#     (null, '소시지맛 커피', 2300, 8, 'Y');
+#
+# commit ;
+
+select *
+from tbl_menu;
+
+#========================================================================================================
+# update(수정)
+# - 테이블 기존 행의 컬럼 값을 수정하는 구문
+# - 바꾸고 싶은 컬럼 값이 존재하는 행을 잘 찾는 것이 중요
+/*
+update 테이블명 set {컬럼명} = {값} where 조건
+*/
+# 19번 가격 1000원 인상
+update tbl_menu
+set menu_price = menu_price + 1000
+where menu_code = 19;
+commit;
+
+# 한식의 가격을 모두 인상
+update tbl_menu
+set menu_price = menu_price + 500
+where category_code = (select c.category_code from tbl_category c where category_name = '한식');
+commit;
+
+# delete : 삭제
+# - 지정된 행을 삭제
+/*
+    delete from {테이블명} where {조건}
+*/
+select max(menu_code)
+from tbl_menu;
+delete
+from tbl_menu
+where menu_code = (select max(menu_code) from tbl_menu);
+
+# replace
+# - insert + update (upsert 구문)
+# - 새로운 데이터를 테이블에 삽입할 때
+# pk(식별자) 값이 중복되는 것이 없으면 insert
+# 중복된다면 update
+/*
+[문법]
+ REPLACE INTO <테이블명> VALUES (입력데이터1, 입력데이터2, ... );
+*/
+
+delete from tbl_menu where menu_code = 22;
+
+replace into tbl_menu values (100, '참기름커피', 3000, 8, 'Y')
+;
+
+replace into tbl_menu values (22, '참기름커피', 3000, 8, 'Y')
+;
+
+# update 모습
+# 실제 동작
+# 1. delete 동작
+# 이후 2. insert 수행 총 2번 동작
+replace into tbl_menu values (100, '소주맛커피', 5000, 8, 'Y')
+;
+
+select * from tbl_menu;
+
+select * from tbl_category;
+
+
