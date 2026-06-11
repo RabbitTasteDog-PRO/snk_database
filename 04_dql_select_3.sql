@@ -49,7 +49,45 @@ select count(ref_category_code)
 from tbl_category
 ;
 
+#==========================================================================================================
+# group by
+# 지정된 컬럼 값이 일치하는 행을 그룹화(grouping) 시키는 구분
+select category_code,
+       # null 제외한 category_code의 개수
+       count(category_code) count,
+       # 각 그룹의 모든 행의 개수
+       count(*)             totlaCount,
+       # 각 그룹의 메뉴 합계
+       sum(menu_price)      sum,
+       # 각 그룹의 평균
+       avg(menu_price)      avg,
+       #각 그룹의 최대값
+       max(menu_price)      max,
+       # 각 그룹의 최소값
+       min(menu_price)      min
+from tbl_menu
+# 카테고리 코드의 같은 코드명들을 그룹화
+group by category_code;
 
 
+### group by 사용 시 주의사항
+# 1. null도 그룹으로 포함
+# 2. select 절에는 group by 기준이 된 컬럼 + 그룹 함수만 작성 가능함
+select ref_category_code, category_name
+from tbl_category
+group by ref_category_code
+;
 
+# 그룹을 만들고 그 안에 하위그룹 구성 가능
+select
+    # category_code로 1차 그룹화 후
+    category_code,
+    # orderable_status가 같은 행끼리 2차 그룹화
+    orderable_status,
+    # 2차 그룹화된 그룹의 카운트
+    count(*)
+from tbl_menu
+group by category_code, orderable_status
+order by category_code asc
+;
 
