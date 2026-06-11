@@ -91,3 +91,56 @@ group by category_code, orderable_status
 order by category_code asc
 ;
 
+
+# where + group by : 필터링 된 행 중 컬럼값이 같은 행 그룹화
+# - where : 지정된 테이블에서 행을 필터링
+# - group by : 컬럼값이 같은 행을 그룹화
+
+# 메뉴 테이블에서 카테고리별 개수, 합계
+# 메뉴 가격이 10000원 이상인 메뉴
+select m.category_code, count(*), sum(m.menu_price)
+from tbl_menu as m
+where m.menu_price >= 10000
+group by m.category_code
+;
+
+# 메뉴 테이블에서
+# 주문이 가능한  메뉴 중 카테고리 코드가 4,10인 메뉴의
+# 카테고리별 개수
+select *
+from tbl_menu;
+
+select c.category_name, count(*)
+from tbl_menu as m
+         join tbl_category as c
+              on m.category_code = c.category_code
+where m.category_code in (4, 10)
+  and m.orderable_status = 'Y'
+group by c.category_name
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
