@@ -78,6 +78,16 @@ from EMPLOYEE as a
 order by a.EMP_ID asc
 ;
 
+select a.EMP_ID,
+       a.EMP_NAME,
+       a.DEPT_CODE,
+       b.DEPT_ID,
+       b.DEPT_TITLE
+from EMPLOYEE as a, DEPARTMENT as b
+where a.DEPT_CODE = b.DEPT_ID
+order by a.EMP_ID asc
+;
+
 # left outer join
 # join 구문 기준 왼쪽에 작성된 테이블에
 # 모든 행이 relation에 포함되게 하기
@@ -106,3 +116,48 @@ from EMPLOYEE as a
               on a.DEPT_CODE = b.DEPT_ID
 order by a.EMP_ID asc
 ;
+
+# menudb 계정
+# cross join(카테시안곱, 곱집합)
+# 조인 되는 두 테이블의 모든 경우의 수를 처리한 것
+select count(*) from tbl_menu -- 22 햏
+;
+
+select count(*) from tbl_category -- 12행
+;
+
+select * from tbl_menu
+    cross join tbl_category
+;
+
+# self join
+# - 하나의 테이블에서
+# - 한 행이 다른 행을 참조하는 관계가 있는 경우
+# 같은 테이블끼리 조인하는것
+# [tip] 똑같은 테이블이 2개 있다고 생각하면 쉬움
+select child.category_code
+     , child.category_name
+     , parent.category_name as "상위 카테고리"
+
+from tbl_category child
+         join tbl_category parent
+              on child.ref_category_code = parent.category_code
+where parent.category_name = '식사'
+;
+
+# multiple join
+-- 3개 이상의 테이블을 조인하는것
+-- join 순서가 중요함
+-- ex) a join b join c
+--  -> (a+b) join c
+--  -> (a+b+c)
+
+select * from tbl_order
+;
+
+select * from tbl_order_menu
+;
+
+select * from tbl_menu
+;
+
