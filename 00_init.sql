@@ -1,3 +1,8 @@
+SHOW DATABASES;
+# 데이터 테이블 확인
+SELECT user, host
+FROM mysql.user;
+
 # 새로운 사용자 생성
 create user skn_ai@'%' identified by '1234';
 
@@ -56,3 +61,19 @@ USE menudb;
 SHOW TABLES;
 
 SELECT t.* FROM menudb.tbl_order t;
+
+
+
+CREATE USER IF NOT EXISTS 'skn_ai'@'%' IDENTIFIED BY '1234';
+
+CREATE DATABASE IF NOT EXISTS menudb;
+CREATE DATABASE IF NOT EXISTS employeedb;
+
+GRANT ALL PRIVILEGES ON menudb.* TO 'skn_ai'@'%';
+GRANT ALL PRIVILEGES ON employeedb.* TO 'skn_ai'@'%';
+
+FLUSH PRIVILEGES;
+
+SHOW DATABASES;
+SELECT user, host FROM mysql.user;
+SHOW GRANTS FOR 'skn_ai'@'%';
